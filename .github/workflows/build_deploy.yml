@@ -3,7 +3,7 @@ name: Build_Deploy
 on:
   push:
     branches:
-      - main
+      - task/laleliyeva
 
 jobs:
   deploy-report:
