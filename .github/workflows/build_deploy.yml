@@ -1,0 +1,39 @@
+name: Build_Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: pip install pandas
+
+      - name: Create Reports Directory
+        run: mkdir -p reports
+
+      - name: Generate Analytics Report
+        run: python scripts/reports.py
+
+      - name: Simulate Deployment
+        run: |
+          echo "Deploying analytics report..."
+          echo "Deployment successful!"
+
+      - name: Upload Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: analytics-report
+          path: reports/
